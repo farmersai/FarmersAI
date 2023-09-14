@@ -1,4 +1,5 @@
 import boto3
+import traceback
 import numpy as np
 from botocore.client import Config
 from flask import Flask, jsonify, request
@@ -95,7 +96,7 @@ def crop_recommedation():
         lang = data.get("lang")
         if lang == None:
             lang = "en"
-        city = translate_text_to_language(city, "en", lang)
+        city = str(data.get('city'))
 
         try:
             city_info = weather_fetch(city)
@@ -107,13 +108,14 @@ def crop_recommedation():
             data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
             my_prediction = recommend_crop(data)
             recommendation_result = {
-                    "prediction": translate_text_to_language(my_prediction[0],lang, "en")
+                    "prediction": my_prediction
                 }
             return response_payload(True, recommendation_result, "Success search")
         else:
             return response_payload(False, 'Please try again') 
         
-    except Exception:
+    except Exception as e:
+        print(traceback.format_exc())
         return response_payload(False, msg="Request body is not valid")
 @app.route('/fertilizer-predict', methods = ["POST"])
 def predict_fertilizer():
@@ -133,47 +135,25 @@ def predict_fertilizer():
         if lang == None:
             lang = "en"
 
-        soil_type = translate_text_to_language(soil_type, "en", lang)
-        crop_type = translate_text_to_language(crop_type, "en", lang)
-        city = translate_text_to_language(city, "en", lang)
+        city = str(data.get('city'))
         try:
             city_info = weather_fetch(city)
         except Exception:
             return response_payload(False, msg="Unable to get the city information. Please try again")
         
-        encoded_soil_type = encode_soil_type(soil_type)
-        encoded_crop_type = encode_crop_type(crop_type)
-        
-        if(encoded_soil_type == None and encoded_crop_type == None):
-            return response_payload(False, msg="Invalid soil type or crop type")
-        
         if city_info != None:
             temperature, humidity = city_info
-            data = np.array([[ temperature , humidity , moisture,encoded_soil_type,encoded_crop_type, N, P, K]])
-            
-            try:
-                data = min_max(data)
-                print('Data ', data)
-            except  Exception as e:
-                print('Error')
-                print(e)
-                
-            try:
-                my_prediction = recommend_fertilizer(data)
-            except  Exception as e:
-                print('Error')
-                print(e)
-            prediction = decode_fertilizer(my_prediction[0])
+            data = np.array([[N, P, K, temperature, humidity, soil_type, crop_type]])
+            my_prediction = recommend_crop(data)
             recommendation_result = {
-                    "prediction": prediction,
-                    "info":  generate_fertilizer_report(prediction, lang)
+                    "prediction": my_prediction
                 }
-            return response_payload(True, recommendation_result, "Success prediction")
+            return response_payload(True, recommendation_result, "Success search")
         else:
             return response_payload(False, 'Please try again') 
         
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
         return response_payload(False, msg="Request body is not valid")
 
 @app.route('/find_response/<lang>/<phone_number>/<message_body>', methods=['GET','POST'])
