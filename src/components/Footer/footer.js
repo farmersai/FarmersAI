@@ -18,9 +18,9 @@ const Footer = () => {
             onClick={() => navigate("/")}
           >
             <img src={logo} className="footerLogo" alt="" />
-            <div className="ml-4">
-              <h3 className="text-2xl text-white font-bold mt-4">Krashak.AI</h3>
-              <p className="text-md font-normal text-white mt-2">
+            <div className="ml-6 w-59">
+              <h4 className="text-xl text-white font-bold mt-4">FarmersAI</h4>
+              <p className="text-xs font-normal text-white mt-1">
                 WeAreFarmerVoice
               </p>
             </div>
@@ -102,14 +102,10 @@ const Footer = () => {
             />
           </div>
           <p className="text-lg ml-6 text-white">
-            Made by : <strong>Team Geeks_on_Fire</strong>
+            Made by : <strong>Team: MS Hackathon 2023</strong>
           </p>
         </div>
         <div className="flex-1 flex mr-6">
-          <img src={footerBg} className="footerBgImg" alt="" />
-          <h1 className="text-xl text-white font-bold mt-6">
-            Ministry of agriculture and farmer's welfare
-          </h1>
         </div>
       </div>
     </div>

@@ -26,8 +26,8 @@ class HelpCard extends Component {
                 alt="call"
               />
               <div className="flex flex-column flex-wrap w-40">
-                <p className="">Give krashak a call </p>
-                <p className="text-green-600">9876644566</p>
+                <p className="">Give FarmersAI a call </p>
+                <p className="text-green-600">111-222-3333</p>
               </div>
             </div>
             <div className="flex flex-row m-2">

@@ -166,9 +166,11 @@ const Crop = () => {
             <div></div>
           )}
           {prediction !== "" ? (
-            <div className="grid place-items-center my-14 text-center ">
+            <div className="grid place-items-center my-14 text-center w-1/2 mx-auto">
               <p className="font-bold my-3">Crop Predicted: </p>
-              {prediction}
+              <div className="text-lg font-semibold text-blue-600">
+                {prediction}
+              </div>
             </div>
           ) : (
             <div></div>

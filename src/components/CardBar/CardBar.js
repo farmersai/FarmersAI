@@ -9,10 +9,10 @@ class CardBar extends Component {
       <section className="body__section py-10">
         <div className="grid place-items-center mt-5">
           <p className="text-3xl font-bold text-center text-gray-900 uppercase mb-2">
-            HOW KRASHAK HELPS
+            HOW Farmers.AI HELPS
           </p>
           <p className="text-xl font-medium text-center text-gray-500 ">
-            Being a part of Krashak.AI, these are our mainstays
+            Being a part of FarmersAI, these are our mainstays
           </p>
         </div>
         <div className="grid place-items-center mt-14 mb-20">

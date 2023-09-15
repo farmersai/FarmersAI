@@ -205,9 +205,11 @@ const Fertilizer = () => {
             <div></div>
           )}
           {prediction !== "" ? (
-            <div className="grid place-items-center my-14 text-center ">
+            <div className="grid place-items-center my-14 text-center w-1/2 mx-auto">
               <p className="font-bold my-3">Fertilizer Predicted: </p>
-              {prediction}
+              <div className="text-lg font-semibold text-blue-600">
+                {prediction}
+              </div>
               <p className="font-bold my-3">Information</p>
               {information}
               <p className="font-bold my-3">Application</p>
