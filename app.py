@@ -232,7 +232,7 @@ def disease_prediction(lang):
 
             prediction = predict_image(img)
             recommendation_result = {
-                    "prediction": translate_text_to_language(prediction, lang, "en"),
+                    "prediction": prediction
                 }
             return response_payload(True, recommendation_result, "Success prediction")
             
