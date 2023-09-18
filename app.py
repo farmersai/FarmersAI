@@ -1,4 +1,3 @@
-import boto3
 import traceback
 import numpy as np
 from botocore.client import Config
@@ -10,6 +9,7 @@ from twilio.rest import Client
 from config import ACCESS_KEY_ID, ACCESS_SECRET_KEY, BUCKET_NAME, config
 from crop_recommendation.corp_prediction import recommend_crop
 from crop_recommendation.weather import weather_fetch
+from sales.sales_recommend import recommend_marketPlace
 from disease_classifier.classify_disease import predict_image
 from farmers_log.search_user_request import search_log
 from fertilizier_predict.crop_type_encoder import encode_crop_type
@@ -117,6 +117,37 @@ def crop_recommedation():
     except Exception as e:
         print(traceback.format_exc())
         return response_payload(False, msg="Request body is not valid")
+    
+@app.route('/marketPlace', methods = ["POST"])
+def marketPlace():
+    data, form_valid = check_form_data()
+    if form_valid == 0:
+        return response_payload(False, msg= data)
+    
+    try:
+        crop = data.get("crop")
+        city = data.get("city")
+        lang = data.get("lang")
+        if lang == None:
+            lang = "en"
+        
+        crop = str(data.get('crop'))
+        city = str(data.get('city'))
+         
+        if city != None:
+            data = np.array([[crop, city]])
+            my_prediction = recommend_marketPlace(data)
+            recommendation_result = {
+                    "prediction": my_prediction
+                }
+            return response_payload(True, recommendation_result, "Success search")
+        else:
+            return response_payload(False, 'Please try again') 
+        
+    except Exception as e:
+        print(traceback.format_exc())
+        return response_payload(False, msg="Request body is not valid")
+    
 @app.route('/fertilizer-predict', methods = ["POST"])
 def predict_fertilizer():
     data, form_valid = check_form_data()
