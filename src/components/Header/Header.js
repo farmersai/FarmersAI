@@ -26,12 +26,7 @@ const Header = () => {
             >
               Home
             </li>
-            <li
-              className="text-sm cursor-pointer font-semibold text-[#219653] hover:opacity-90 ml-6 mr-1.5"
-              onClick={() => navigate("/voice")}
-            >
-              Voice Help
-            </li>
+            
             <li
               className="text-sm cursor-pointer font-semibold text-[#219653] hover:opacity-90 ml-6 mr-1.5"
               onClick={() => navigate("/crop")}
@@ -51,10 +46,10 @@ const Header = () => {
               Disease Prediction
             </li>
             <li
-              onClick={() => navigate("/sms")}
+              onClick={() => navigate("/marketPlace")}
               className="text-sm cursor-pointer font-semibold text-[#219653] hover:opacity-90 ml-6 mr-1.5"
             >
-              SMS Service
+              MarketPlace Recommendation
             </li>
           </ul>
         </div>
